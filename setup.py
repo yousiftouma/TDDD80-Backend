@@ -7,4 +7,4 @@ setup(name='MyApp',
       author_email='youto814@student.liu.se',
       url='http://www.python.org/sigs/distutils-sig/',
       install_requires=['Flask'],
-     )
+      )
