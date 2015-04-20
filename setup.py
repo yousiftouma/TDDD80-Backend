@@ -6,5 +6,5 @@ setup(name='MyApplication',
       author='Yousif Touma',
       author_email='youto814@student.liu.se',
       url='http://www.python.org/sigs/distutils-sig/',
-      install_requires=['Flask', 'Flask-SQLAlchemy'],
+      install_requires=['Flask==0.10.1', 'Flask-SQLAlchemy==2.0'],
       )
