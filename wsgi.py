@@ -8,7 +8,7 @@ virtenv = os.path.join(os.environ.get('OPENSHIFT_PYTHON_DIR', '.'), 'virtenv')
 # line, it's possible required libraries won't be in your searchable path
 #
 
-from run_developer_mode import app as application
+from app import app as application
 
 ## runs server locally
 if __name__ == '__main__':
