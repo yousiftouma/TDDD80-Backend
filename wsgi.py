@@ -13,4 +13,6 @@ except IOError:
 # line, it's possible required libraries won't be in your searchable path
 #
 
-from run_developer_mode import app as application
+from app.__init__ import app as application
+
+application.run(4599, debug=True)

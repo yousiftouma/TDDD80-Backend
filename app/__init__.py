@@ -1,5 +1,3 @@
-__author__ = 'Yousif Touma'
-
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 
