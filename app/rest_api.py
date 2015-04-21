@@ -63,6 +63,12 @@ def get_posts(user_id):
     return json.jsonify({"posts": result})
 
 
+@app.route('/get_user_likes_by_id/<user_id>', methods=['GET'])
+def get_user_likes(user_id):
+    likes = get_likes_by_id(user_id)
+    return json.jsonify({likes})
+
+
 @app.route('/register_user', methods=['POST'])
 def register_user():
     json_object = request.get_json(force=True)

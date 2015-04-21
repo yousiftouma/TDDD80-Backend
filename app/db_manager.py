@@ -25,6 +25,10 @@ def get_posts_by_id(user_id):
     return SongPost.query.filter_by(user_id=user_id).all()
 
 
+def get_likes_by_id(user_id):
+    db.session.query(like_relation).filter(like_relation.c.user_id == user_id).all()
+
+
 def like_post(user, post):
     relation = post.get_liked(user)
     db.session.add(relation)
