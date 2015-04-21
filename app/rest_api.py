@@ -66,7 +66,8 @@ def get_posts(user_id):
 @app.route('/get_user_likes_by_id/<user_id>', methods=['GET'])
 def get_user_likes(user_id):
     likes = get_likes_by_id(user_id)
-    return json.jsonify({likes})
+    print("hej")
+    return likes
 
 
 @app.route('/register_user', methods=['POST'])
@@ -110,7 +111,7 @@ def do_unfollow():
 
 @app.route('/like/', methods=['POST'])
 def do_like():
-    user_liking = get_user(request.args.get('liker'))
+    user_liking = get_user_by_id(request.args.get('liker'))
     post = get_post(request.args.get('post_id'))
     like_post(user_liking, post)
     return json.jsonify({"result": "ok"})
