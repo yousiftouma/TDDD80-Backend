@@ -66,8 +66,11 @@ def get_posts(user_id):
 @app.route('/get_user_likes_by_id/<user_id>', methods=['GET'])
 def get_user_likes(user_id):
     likes = get_likes_by_id(user_id)
+    posts = []
+    for like in likes:
+        posts.append(like[1])
     print("hej")
-    return likes
+    return json.jsonify({"post_ids": posts})
 
 
 @app.route('/register_user', methods=['POST'])

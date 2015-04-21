@@ -1,6 +1,6 @@
 __author__ = 'Yousif Touma'
 
-from app.models import *
+from .models import *
 from datetime import datetime
 from flask import json
 
@@ -26,7 +26,7 @@ def get_posts_by_id(user_id):
 
 
 def get_likes_by_id(id):
-    db.session.query(like_relation).filter(like_relation.c.user_id == id).all()
+    return db.session.query(like_relation).filter(like_relation.c.user_id == id).all()
 
 
 def like_post(user, post):
