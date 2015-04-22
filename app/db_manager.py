@@ -30,25 +30,33 @@ def get_likes_by_id(id):
 
 
 def like_post(user, post):
-    relation = post.get_liked(user)
+    postObj = SongPost.query.get(post)
+    userObj = User.query.get(user)
+    relation = postObj.get_liked(userObj)
     db.session.add(relation)
     db.session.commit()
 
 
 def unlike_post(user, post):
-    remove_relation = post.get_unliked(user)
+    postObj = SongPost.query.get(post)
+    userObj = User.query.get(user)
+    remove_relation = postObj.get_unliked(userObj)
     db.session.add(remove_relation)
     db.session.commit()
 
 
 def follow_user(follower, followed):
-    relation = follower.follow(followed)
+    followerUser = User.query.get(follower)
+    followedUser = User.query.get(followed)
+    relation = followerUser.follow(followedUser)
     db.session.add(relation)
     db.session.commit()
 
 
 def unfollow_user(follower, followed):
-    remove_relation = follower.unfollow(followed)
+    followerUser = User.query.get(follower)
+    followedUser = User.query.get(followed)
+    remove_relation = followerUser.unfollow(followedUser)
     db.session.add(remove_relation)
     db.session.commit()
 
