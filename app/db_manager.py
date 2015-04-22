@@ -3,6 +3,7 @@ __author__ = 'Yousif Touma'
 from .models import *
 from datetime import datetime
 from flask import json
+from sqlalchemy import desc
 
 
 def get_user_by_email(email):
@@ -22,7 +23,7 @@ def get_post(post_id):
 
 
 def get_posts_by_id(user_id):
-    return SongPost.query.filter_by(user_id=user_id).all()
+    return SongPost.query.filter_by(user_id=user_id).order_by(desc(SongPost.timestamp)).all()
 
 
 def get_likes_by_id(id):
