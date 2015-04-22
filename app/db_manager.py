@@ -10,8 +10,8 @@ def get_user_by_email(email):
     return User.query.filter_by(email=email).first()
 
 
-def get_user_by_id(id):
-    return User.query.filter_by(id=id).first()
+def get_user_by_id(user_id):
+    return User.query.filter_by(id=user_id).first()
 
 
 def get_users():
@@ -26,9 +26,12 @@ def get_posts_by_id(user_id):
     return SongPost.query.filter_by(user_id=user_id).order_by(desc(SongPost.timestamp)).all()
 
 
-def get_likes_by_id(id):
-    return db.session.query(like_relation).filter(like_relation.c.user_id == id).all()
+def get_likes_by_id(user_id):
+    return db.session.query(like_relation).filter(like_relation.c.user_id == user_id).all()
 
+
+def get_all_likes_for_post(post_id):
+    return db.session.query(like_relation).filter(like_relation.c.post_id == post_id).all()
 
 def like_post(user, post):
     postObj = SongPost.query.get(post)
