@@ -98,16 +98,20 @@ def add_cmnt():
 
 @app.route('/follow/', methods=['POST'])
 def do_follow():
-    follower = get_user_by_id(request.args.get('follower'))
-    followed = get_user_by_id(request.args.get('followed'))
+    json_object = request.get_json(force=True)
+    data = json_object["action"][0]
+    follower = data["user_id"]
+    followed = data["post_id"]
     follow_user(follower, followed)
     return json.jsonify({"result": "followed"})
 
 
 @app.route('/unfollow/', methods=['POST'])
 def do_unfollow():
-    follower = get_user_by_id(request.args.get('follower'))
-    followed = get_user_by_id(request.args.get('followed'))
+    json_object = request.get_json(force=True)
+    data = json_object["action"][0]
+    follower = data["user_id"]
+    followed = data["post_id"]
     unfollow_user(follower, followed)
     return json.jsonify({"result": "unfollowed"})
 
