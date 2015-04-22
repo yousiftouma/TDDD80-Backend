@@ -75,7 +75,9 @@ def get_user_likes(user_id):
 @app.route('/get_number_of_likes_for_post/<post_id>', methods=['GET'])
 def get_number_of_likes(post_id):
     likes = get_all_likes_for_post(post_id)
-    number_of_likes = likes.length()
+    print(likes)
+    number_of_likes = likes.len()
+    print(number_of_likes)
     return json.jsonify({"number_of_likes": str(number_of_likes)})
 
 
