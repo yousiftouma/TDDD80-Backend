@@ -101,7 +101,7 @@ def do_follow():
     follower = get_user_by_id(request.args.get('follower'))
     followed = get_user_by_id(request.args.get('followed'))
     follow_user(follower, followed)
-    return json.jsonify({"result": "ok"})
+    return json.jsonify({"result": "followed"})
 
 
 @app.route('/unfollow/', methods=['POST'])
@@ -109,23 +109,27 @@ def do_unfollow():
     follower = get_user_by_id(request.args.get('follower'))
     followed = get_user_by_id(request.args.get('followed'))
     unfollow_user(follower, followed)
-    return json.jsonify({"result": "ok"})
+    return json.jsonify({"result": "unfollowed"})
 
 
 @app.route('/like/', methods=['POST'])
 def do_like():
-    user_liking = get_user_by_id(request.args.get('liker'))
-    post = get_post(request.args.get('post_id'))
+    json_object = request.get_json(force=True)
+    data = json_object["action"][0]
+    user_liking = data["user_id"]
+    post = data["post_id"]
     like_post(user_liking, post)
-    return json.jsonify({"result": "ok"})
+    return json.jsonify({"result": "liked"})
 
 
 @app.route('/unlike/', methods=['POST'])
 def do_unlike():
-    user_unliking = get_user_by_id(request.args.get('unliker'))
-    post = get_post(request.args.get('post_id'))
+    json_object = request.get_json(force=True)
+    data = json_object["action"][0]
+    user_unliking = data["user_id"]
+    post = data["post_id"]
     unlike_post(user_unliking, post)
-    return json.jsonify({"result": "ok"})
+    return json.jsonify({"result": "unliked"})
 
 
 
