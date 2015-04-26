@@ -81,8 +81,10 @@ def get_number_of_likes(post_id):
 
 @app.route('/get_comments_for_post_by_id/<post_id>', methods=['GET'])
 def get_comments_for_post(post_id):
+    print("apifunction gets comments: ")
     comments = get_comments_for_post_by_id(post_id)
-    print("apifunction gets comments: ", comments)
+    print("comments: ")
+    print(comments)
     result = []
     if comments is not None:
         for comment in comments:
@@ -106,7 +108,7 @@ def add_post():
 
 
 @app.route('/add_comment', methods=['POST'])
-def add_cmnt():
+def add_new_comment():
     json_object = request.get_json(force=True)
     data = json_object["comment"][0]
     add_comment(data)

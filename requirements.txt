@@ -1,2 +1,3 @@
+migrate
 sqlalchemy
 flask

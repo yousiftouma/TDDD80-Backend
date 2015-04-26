@@ -58,7 +58,7 @@ class SongPost(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     artist = db.Column(db.String)
-    title = db.Column(db.String, unique=True)
+    title = db.Column(db.String)
     description = db.Column(db.String)
     timestamp = db.Column(db.DateTime)
     mediafile_path = db.Column(db.String)

@@ -35,7 +35,8 @@ def get_all_likes_for_post(post_id):
 
 
 def get_comments_for_post_by_id(post_id):
-    return Comment.query.filter_by(post_id=post_id).order_by(desc(Comment.timestamp)).all()
+    print("getting comments in db manager")
+    return Comment.query.filter_by(song_post_id=post_id).order_by(desc(Comment.timestamp)).all()
 
 
 def like_post(user, post):
@@ -72,17 +73,23 @@ def unfollow_user(follower, followed):
 
 def add_comment(data):
     u = User.query.get(data["user_id"])
+    print(u)
     p = SongPost.query.get(data["song_post_id"])
-    comment = Comment(comment_author=u, comment_song_post=p, text=data["text"],
-                      timestamp=datetime.utcnow())
+    print(p)
+    comment = Comment(text=data["text"],
+                      timestamp=datetime.utcnow(), comment_author=u, comment_song_post=p)
+    print(comment)
     db.session.add(comment)
     db.session.commit()
 
 
 def add_song_post(data):
     u = User.query.get(data["user_id"])
-    db.session.add(post_author=u, title=data["title"], artist=u.username, description=data["description"],
-                   timestamp=datetime.utcnow(), mediafile_path=data["mediafile_path"])
+    print(u)
+    song_post = SongPost(post_author=u, title=data["title"], artist=u.username, description=data["description"],
+                         timestamp=datetime.utcnow(), mediafile_path=data["mediafile_path"])
+    print(song_post)
+    db.session.add(song_post)
     db.session.commit()
 
 
