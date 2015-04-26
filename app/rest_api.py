@@ -79,13 +79,13 @@ def get_number_of_likes(post_id):
     return json.jsonify({"number_of_likes": str(number_of_likes)})
 
 
-@app.route('/get_comments_for_post_by_id/<post_id>', methods=['GET']
+@app.route('/get_comments_for_post_by_id/<post_id>', methods=['GET'])
 def get_comments_for_post(post_id):
     comments = get_comments_for_post_by_id(post_id)
     result = []
     if comments is not None:
         for comment in comments:
-           result.append(comment.as_dict())
+            result.append(comment.as_dict())
     return json.jsonify({"comments": result})
 
 

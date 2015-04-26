@@ -33,6 +33,7 @@ def get_likes_by_id(user_id):
 def get_all_likes_for_post(post_id):
     return db.session.query(like_relation).filter(like_relation.c.post_id == post_id).all()
 
+
 def get_comments_for_post_by_id(post_id):
     return Comment.query.filter_by(post_id=post_id).order_by(desc(Comment.timestamp)).all()
 
@@ -73,7 +74,7 @@ def add_comment(data):
     u = User.query.get(data["user_id"])
     p = SongPost.query.get(data["song_post_id"])
     comment = Comment(comment_author=u, comment_song_post=p, text=data["text"],
-                      timestamp=datetime.datetime.utcnow())
+                      timestamp=datetime.utcnow())
     db.session.add(comment)
     db.session.commit()
 
