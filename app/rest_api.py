@@ -75,10 +75,18 @@ def get_user_likes(user_id):
 @app.route('/get_number_of_likes_for_post/<post_id>', methods=['GET'])
 def get_number_of_likes(post_id):
     likes = get_all_likes_for_post(post_id)
-    print(likes)
     number_of_likes = len(likes)
-    print(number_of_likes)
     return json.jsonify({"number_of_likes": str(number_of_likes)})
+
+
+@app.route('/get_comments_for_post_by_id/<post_id>', methods=['GET']
+def get_comments_for_post(post_id):
+    comments = get_comments_for_post_by_id(post_id)
+    result = []
+    if comments is not None:
+        for comment in comments:
+           result.append(comment.as_dict())
+    return json.jsonify({"comments": result})
 
 
 @app.route('/register_user', methods=['POST'])
