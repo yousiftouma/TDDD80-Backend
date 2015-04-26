@@ -81,10 +81,7 @@ def get_number_of_likes(post_id):
 
 @app.route('/get_comments_for_post_by_id/<post_id>', methods=['GET'])
 def get_comments_for_post(post_id):
-    print("apifunction gets comments: ")
     comments = get_comments_for_post_by_id(post_id)
-    print("comments: ")
-    print(comments)
     result = []
     if comments is not None:
         for comment in comments:

@@ -56,39 +56,34 @@ def unlike_post(user, post):
 
 
 def follow_user(follower, followed):
-    followerUser = User.query.get(follower)
-    followedUser = User.query.get(followed)
-    relation = followerUser.follow(followedUser)
+    follower_user = User.query.get(follower)
+    followed_user = User.query.get(followed)
+    relation = follower_user.follow(followed_user)
     db.session.add(relation)
     db.session.commit()
 
 
 def unfollow_user(follower, followed):
-    followerUser = User.query.get(follower)
-    followedUser = User.query.get(followed)
-    remove_relation = followerUser.unfollow(followedUser)
+    follower_user = User.query.get(follower)
+    followed_user = User.query.get(followed)
+    remove_relation = follower_user.unfollow(followed_user)
     db.session.add(remove_relation)
     db.session.commit()
 
 
 def add_comment(data):
     u = User.query.get(data["user_id"])
-    print(u)
     p = SongPost.query.get(data["song_post_id"])
-    print(p)
     comment = Comment(text=data["text"],
                       timestamp=datetime.utcnow(), comment_author=u, comment_song_post=p)
-    print(comment)
     db.session.add(comment)
     db.session.commit()
 
 
 def add_song_post(data):
     u = User.query.get(data["user_id"])
-    print(u)
     song_post = SongPost(post_author=u, title=data["title"], artist=u.username, description=data["description"],
                          timestamp=datetime.utcnow(), mediafile_path=data["mediafile_path"])
-    print(song_post)
     db.session.add(song_post)
     db.session.commit()
 
