@@ -92,6 +92,11 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     song_post_id = db.Column(db.Integer, db.ForeignKey('song_post.id'))
     text = db.Column(db.String)
+    timestamp = db.Column(db.DateTime)
+    
 
     def __repr__(self):
         return '<Comment %r>' % self.text
+
+    def as_dict(self):
+        return {column.name: getattr(self, column.name) for column in self.__table__.columns}
