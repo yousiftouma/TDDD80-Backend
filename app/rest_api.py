@@ -63,6 +63,7 @@ def get_posts(user_id):
     return json.jsonify({"posts": result})
 
 
+# returns json on form {"post_ids": [int id1, int id2]}
 @app.route('/get_user_likes_by_id/<user_id>', methods=['GET'])
 def get_user_likes(user_id):
     likes = get_likes_by_id(user_id)
@@ -70,6 +71,16 @@ def get_user_likes(user_id):
     for like in likes:
         posts.append(like[1])
     return json.jsonify({"post_ids": posts})
+
+
+# returns json on form {"user_ids": [int id, int id2, int id3]}
+@app.route('/get_all_followed_by_id/<user_id>', methods=['GET'])
+def get_followed_users(user_id):
+    follow_relations = get_followed_users_by_id(user_id)
+    followed_users = []
+    for relation in follow_relations:
+        followed_users.append(relation[1])
+    return json.jsonify({"user_ids": followed_users})
 
 
 @app.route('/get_number_of_likes_for_post/<post_id>', methods=['GET'])
@@ -116,8 +127,8 @@ def add_new_comment():
 def do_follow():
     json_object = request.get_json(force=True)
     data = json_object["action"][0]
-    follower = data["user_id"]
-    followed = data["post_id"]
+    follower = data["follower_id"]
+    followed = data["followed_id"]
     follow_user(follower, followed)
     return json.jsonify({"result": "followed"})
 
@@ -126,8 +137,8 @@ def do_follow():
 def do_unfollow():
     json_object = request.get_json(force=True)
     data = json_object["action"][0]
-    follower = data["user_id"]
-    followed = data["post_id"]
+    follower = data["follower_id"]
+    followed = data["followed_id"]
     unfollow_user(follower, followed)
     return json.jsonify({"result": "unfollowed"})
 

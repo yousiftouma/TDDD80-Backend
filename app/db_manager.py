@@ -30,12 +30,15 @@ def get_likes_by_id(user_id):
     return db.session.query(like_relation).filter(like_relation.c.user_id == user_id).all()
 
 
+def get_followed_users_by_id(user_id):
+    return db.session.query(followers).filter(followers.c.follower_id == user_id).all()
+
+
 def get_all_likes_for_post(post_id):
     return db.session.query(like_relation).filter(like_relation.c.post_id == post_id).all()
 
 
 def get_comments_for_post_by_id(post_id):
-    print("getting comments in db manager")
     return Comment.query.filter_by(song_post_id=post_id).order_by(desc(Comment.timestamp)).all()
 
 
