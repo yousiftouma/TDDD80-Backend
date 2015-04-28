@@ -1,5 +1,9 @@
 # Created by https://www.gitignore.io
 
+### Database - use git add -f database.db when you want to push a fresh db and then git checkout -- database.db to untrack it after that###
+# Databases
+database.db
+
 ### Windows ###
 # Windows image file caches
 Thumbs.db
