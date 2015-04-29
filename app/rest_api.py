@@ -76,10 +76,7 @@ def get_user_likes(user_id):
 # returns json on form {"user_ids": [int id, int id2, int id3]}
 @app.route('/get_all_followed_by_id/<user_id>', methods=['GET'])
 def get_followed_users(user_id):
-    follow_relations = get_followed_users_by_id(user_id)
-    followed_users = []
-    for relation in follow_relations:
-        followed_users.append(relation[1])
+    followed_users = get_list_of_followed_user_ids(user_id)
     return json.jsonify({"user_ids": followed_users})
 
 
@@ -102,9 +99,9 @@ def get_comments_for_post(post_id):
 
 @app.route('/get_feed_posts_by_id/<user_id>', methods=['GET'])
 def get_user_feed(user_id):
-    followed_users_json = json.load(get_followed_users(user_id))
-    followed_users_list = followed_users_json["user_ids"]
-    user_ids = followed_users_list + [user_id]
+    followed_users = get_list_of_followed_user_ids(user_id)
+    user_ids = followed_users + [user_id]
+    print(user_ids)
     posts = get_posts_by_multiple_ids(user_ids)
     print(posts)
     result = []
@@ -177,5 +174,11 @@ def do_unlike():
     return json.jsonify({"result": "unliked"})
 
 
+def get_list_of_followed_user_ids(user_id):
+    follow_relations = get_followed_users_by_id(user_id)
+    followed_users = []
+    for relation in follow_relations:
+        followed_users.append(relation[1])
+    return followed_users
 
 
