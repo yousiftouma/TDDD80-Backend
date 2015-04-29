@@ -102,7 +102,7 @@ def get_comments_for_post(post_id):
 
 @app.route('/get_feed_posts_by_id/<user_id>', methods=['GET'])
 def get_user_feed(user_id):
-    followed_users_json = get_followed_users(user_id)
+    followed_users_json = json.loads(get_followed_users(user_id))
     followed_users_list = followed_users_json["user_ids"]
     user_ids = followed_users_list + [user_id]
     posts = get_posts_by_multiple_ids(user_ids)
