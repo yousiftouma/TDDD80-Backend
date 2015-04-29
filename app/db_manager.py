@@ -27,7 +27,7 @@ def get_posts_by_id(user_id):
 
 
 def get_posts_by_multiple_ids(user_ids):
-    return db.session.query(SongPost).filter(SongPost.c.user_id in user_ids).order_by(desc(SongPost.timestamp)).all()
+    return db.session.query(SongPost).filter(SongPost.user_id.in_(user_ids)).order_by(desc(SongPost.timestamp)).all()
 
 
 def get_likes_by_id(user_id):
