@@ -100,6 +100,20 @@ def get_comments_for_post(post_id):
     return json.jsonify({"comments": result})
 
 
+@app.route('/get_feed_posts_by_id/<user_id>', methods=['GET'])
+def get_user_feed(user_id):
+    followed_users_json = get_followed_users(user_id)
+    followed_users_list = followed_users_json["user_ids"]
+    user_ids = followed_users_list + [user_id]
+    posts = get_posts_by_multiple_ids(user_ids)
+    print(posts)
+    result = []
+    if posts is not None:
+        for post in posts:
+            result.append(post.as_dict())
+    return json.jsonify({"posts": result})
+
+
 @app.route('/register_user', methods=['POST'])
 def register_user():
     json_object = request.get_json(force=True)

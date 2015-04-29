@@ -26,6 +26,11 @@ def get_posts_by_id(user_id):
     return SongPost.query.filter_by(user_id=user_id).order_by(desc(SongPost.timestamp)).all()
 
 
+def get_posts_by_multiple_ids(user_ids):
+    #return db.session.query(SongPost).filter(SongPost.c.user_id in user_ids).order_by(desc(SongPost.timestamp)).all()
+    return SongPost.query.filter(SongPost.c.user_id in user_ids).order_by(desc(SongPost.timestamp)).all()
+
+
 def get_likes_by_id(user_id):
     return db.session.query(like_relation).filter(like_relation.c.user_id == user_id).all()
 
@@ -43,17 +48,17 @@ def get_comments_for_post_by_id(post_id):
 
 
 def like_post(user, post):
-    postObj = SongPost.query.get(post)
-    userObj = User.query.get(user)
-    relation = postObj.get_liked(userObj)
+    post_object = SongPost.query.get(post)
+    user_object = User.query.get(user)
+    relation = post_object.get_liked(user_object)
     db.session.add(relation)
     db.session.commit()
 
 
 def unlike_post(user, post):
-    postObj = SongPost.query.get(post)
-    userObj = User.query.get(user)
-    remove_relation = postObj.get_unliked(userObj)
+    post_object = SongPost.query.get(post)
+    user_object = User.query.get(user)
+    remove_relation = post_object.get_unliked(user_object)
     db.session.add(remove_relation)
     db.session.commit()
 
