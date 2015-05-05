@@ -135,7 +135,7 @@ def get_post_top_list():
         postobj = {"post_id": post.id, "user_id": post.user_id, "artist": post.artist, "title": post.title
                    , "description": post.description, "likes": number_of_likes}
         post_and_number_of_likes_tuple = (postobj, number_of_likes)
-        sorted_list += add_post_in_order(sorted_list, post_and_number_of_likes_tuple)
+        sorted_list = add_post_in_order(sorted_list, post_and_number_of_likes_tuple)
     print(sorted_list)
     for sortedItem in sorted_list:
         result.append(sortedItem[0])
@@ -219,7 +219,7 @@ def add_post_in_order(seq, post_tuple):
     if not seq:
         return [post_tuple]
     elif seq[0][1] > post_tuple[1]:
-        return add_post_in_order(seq[1:], post_tuple)
+        return [seq[0]] + add_post_in_order(seq[1:], post_tuple)
     else:
         return [post_tuple] + seq
 
