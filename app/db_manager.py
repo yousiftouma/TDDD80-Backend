@@ -22,6 +22,10 @@ def get_users():
     return User.query.all()
 
 
+def get_posts():
+    return SongPost.query.all()
+
+
 def get_post(post_id):
     return SongPost.query.filter_by(id=post_id).first()
 

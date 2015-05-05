@@ -120,6 +120,13 @@ def get_user_feed(user_id):
     return json.jsonify({"posts": result})
 
 
+@app.route('/get_posts_ordered_by_likes', methods=['GET'])
+def get_post_top_list():
+    posts = get_posts()
+    for post in posts:
+        print(post)
+
+
 @app.route('/register_user', methods=['POST'])
 def register_user():
     json_object = request.get_json(force=True)
