@@ -133,8 +133,10 @@ def get_post_top_list():
                    , "description": post.description, "likes": number_of_likes}
         post_and_number_of_likes_tuple = (postobj, number_of_likes)
         sorted_list = add_post_in_order(sorted_list, post_and_number_of_likes_tuple)
-    for sortedItem in sorted_list:
-        result.append(sortedItem[0])
+    if len(sorted_list) >= 10:
+        sorted_list = sorted_list[0:10]
+    for sorted_item in sorted_list:
+        result.append(sorted_item[0])
     return json.jsonify({"post_top_list": result})
 
 
