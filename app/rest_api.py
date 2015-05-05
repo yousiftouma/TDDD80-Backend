@@ -63,7 +63,7 @@ def username_user(username):
 
 
 @app.route('/get_posts_by_id/<user_id>', methods=['GET'])
-def get_posts(user_id):
+def get_posts_id(user_id):
     posts = get_posts_by_id(user_id)
     result = []
     if posts is not None:
@@ -74,7 +74,7 @@ def get_posts(user_id):
 
 # returns json on form {"post_ids": [int id1, int id2]}
 @app.route('/get_user_likes_by_id/<user_id>', methods=['GET'])
-def get_user_likes(user_id):
+def get_user_likes_id(user_id):
     likes = get_likes_by_id(user_id)
     posts = []
     for like in likes:
@@ -84,13 +84,13 @@ def get_user_likes(user_id):
 
 # returns json on form {"user_ids": [int id, int id2, int id3]}
 @app.route('/get_all_followed_by_id/<user_id>', methods=['GET'])
-def get_followed_users(user_id):
+def get_followed_users_id(user_id):
     followed_users = get_list_of_followed_user_ids(user_id)
     return json.jsonify({"user_ids": followed_users})
 
 
 @app.route('/get_number_of_likes_for_post/<post_id>', methods=['GET'])
-def get_number_of_likes(post_id):
+def get_number_of_likes_id(post_id):
     likes = get_all_likes_for_post(post_id)
     number_of_likes = len(likes)
     return json.jsonify({"number_of_likes": str(number_of_likes)})
