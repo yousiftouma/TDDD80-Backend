@@ -125,10 +125,7 @@ def get_post_top_list():
     posts = get_posts()
     sorted_list = []
     result = []
-    n = 1
     for post in posts:
-        print(n)
-        n += 1
         postid = post.id
         likes = get_all_likes_for_post(postid)
         number_of_likes = len(likes)
@@ -136,10 +133,8 @@ def get_post_top_list():
                    , "description": post.description, "likes": number_of_likes}
         post_and_number_of_likes_tuple = (postobj, number_of_likes)
         sorted_list = add_post_in_order(sorted_list, post_and_number_of_likes_tuple)
-    print(sorted_list)
     for sortedItem in sorted_list:
         result.append(sortedItem[0])
-    print("serverresponse length= ", len(result))
     return json.jsonify({"post_top_list": result})
 
 
