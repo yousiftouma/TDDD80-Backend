@@ -123,21 +123,20 @@ def get_user_feed(user_id):
 @app.route('/get_posts_ordered_by_likes', methods=['GET'])
 def get_post_top_list():
     posts = get_posts()
-    sortedList = []
+    sorted_list = []
     result = []
     for post in posts:
         postid = post.id
         likes = get_all_likes_for_post(postid)
         number_of_likes = len(likes)
         postobj = {"post_id": post.id, "user_id": post.user_id, "artist": post.artist, "title": post.title
-                   , "description": post.description}
+                   , "description": post.description, "likes": number_of_likes}
         post_and_number_of_likes_tuple = (postobj, number_of_likes)
-        print(post_and_number_of_likes_tuple)
-        sortedList = add_post_in_order(sortedList, post_and_number_of_likes_tuple)
-    for sortedItem in sortedList:
+        sorted_list = add_post_in_order(sorted_list, post_and_number_of_likes_tuple)
+    print(sorted_list)
+    for sortedItem in sorted_list:
         result.append(sortedItem[0])
-        print(result)
-    return json.jsonify({"post_top_list": sortedList})
+    return json.jsonify({"post_top_list": result})
 
 
 @app.route('/register_user', methods=['POST'])
