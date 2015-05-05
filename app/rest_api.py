@@ -128,7 +128,7 @@ def get_post_top_list():
         postid = post.id
         likes = get_all_likes_for_post(postid)
         number_of_likes = len(likes)
-        post_and_number_of_likes_tuple = (postid, likes)
+        post_and_number_of_likes_tuple = (postid, number_of_likes)
         print(post_and_number_of_likes_tuple)
     return json.jsonify({"post_top_list": result})
 
