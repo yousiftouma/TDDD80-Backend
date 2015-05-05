@@ -208,6 +208,7 @@ def get_list_of_followed_user_ids(user_id):
 
 
 def add_post_in_order(seq, post_tuple):
+    print("seq= " + seq)
     if not seq:
         return [post_tuple[0]]
     elif seq[0][1] > post_tuple[1]:
