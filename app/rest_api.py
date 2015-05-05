@@ -53,6 +53,15 @@ def id_user(id):
     return json.jsonify({"user": result})
 
 
+@app.route('/get_user_by_username/<username>', methods=['GET'])
+def username_user(username):
+    sought_user = get_user_by_username(username)
+    result = []
+    if sought_user is not None:
+        result.append(sought_user.as_dict())
+    return json.jsonify({"user": result})
+
+
 @app.route('/get_posts_by_id/<user_id>', methods=['GET'])
 def get_posts(user_id):
     posts = get_posts_by_id(user_id)
