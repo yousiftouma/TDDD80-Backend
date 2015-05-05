@@ -128,8 +128,11 @@ def get_post_top_list():
         postid = post.id
         likes = get_all_likes_for_post(postid)
         number_of_likes = len(likes)
-        post_and_number_of_likes_tuple = (postid, number_of_likes)
+        postobj = {"post_id": post.id, "user_id": post.user_id, "artist": post.artist, "title": post.title
+                   , "description": post.description}
+        post_and_number_of_likes_tuple = (postobj, number_of_likes)
         print(post_and_number_of_likes_tuple)
+        result = add_post_in_order(result, post_and_number_of_likes_tuple)
     return json.jsonify({"post_top_list": result})
 
 
@@ -202,5 +205,16 @@ def get_list_of_followed_user_ids(user_id):
     for relation in follow_relations:
         followed_users.append(relation[1])
     return followed_users
+
+
+def add_post_in_order(seq, post_tuple):
+    if not seq:
+        return [post_tuple[0]]
+    elif seq[0][1] > post_tuple[1]:
+        return add_post_in_order(seq[1:], post_tuple)
+    else:
+        return [post_tuple[0]] + seq
+
+
 
 
