@@ -125,7 +125,10 @@ def get_post_top_list():
     posts = get_posts()
     sorted_list = []
     result = []
+    n = 1
     for post in posts:
+        print(n)
+        n += 1
         postid = post.id
         likes = get_all_likes_for_post(postid)
         number_of_likes = len(likes)
@@ -136,6 +139,7 @@ def get_post_top_list():
     print(sorted_list)
     for sortedItem in sorted_list:
         result.append(sortedItem[0])
+    print("serverresponse length= ", len(result))
     return json.jsonify({"post_top_list": result})
 
 
@@ -210,6 +214,7 @@ def get_list_of_followed_user_ids(user_id):
     return followed_users
 
 
+# Recursive function to sort after number of likes which is the element of index 1 in the tuple
 def add_post_in_order(seq, post_tuple):
     print("seq=")
     print(seq)
