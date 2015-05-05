@@ -125,7 +125,8 @@ def get_post_top_list():
     posts = get_posts()
     result = []
     for post in posts:
-        print(post)
+        postid = post.id
+        print(postid)
     return json.jsonify({"post_top_list": result})
 
 
