@@ -129,7 +129,7 @@ def get_post_top_list():
         postid = post.id
         likes = get_all_likes_for_post(postid)
         number_of_likes = len(likes)
-        postobj = {"post_id": post.id, "user_id": post.user_id, "artist": post.artist, "title": post.title
+        postobj = {"id": post.id, "user_id": post.user_id, "artist": post.artist, "title": post.title
                    , "description": post.description, "likes": number_of_likes}
         post_and_number_of_likes_tuple = (postobj, number_of_likes)
         sorted_list = add_post_in_order(sorted_list, post_and_number_of_likes_tuple)
