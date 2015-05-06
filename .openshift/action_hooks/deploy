@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# This deploy hook gets executed after dependencies are resolved and the
+# build hook has been run but before the application has been started back
+# up again.
+
+# if this is the initial install, copy DB from repo to persistent storage directory
+if [ ! -f ${OPENSHIFT_DATA_DIR}database.db ]; then
+  cp -rf ${OPENSHIFT_REPO_DIR}database.db ${OPENSHIFT_DATA_DIR}/database.db 2>/dev/null
+fi
+
+# remove the database from the repo during all deploys
+if [ -d ${OPENSHIFT_REPO_DIR}database.db ]; then
+  rm -rf ${OPENSHIFT_REPO_DIR}database.db
+fi
+
+# create symlink from repo directory to new database location in persistent storage
+ln -sf ${OPENSHIFT_DATA_DIR}database.db ${OPENSHIFT_REPO_DIR}database.db
