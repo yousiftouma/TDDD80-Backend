@@ -132,21 +132,16 @@ def get_user_feed(user_id):
 @app.route('/get_posts_ordered_by_likes', methods=['GET'])
 def get_post_top_list():
     posts = get_posts()
-    sorted_list = []
-    result = []
-    for post in posts:
-        postid = post.id
-        likes = get_all_likes_for_post(postid)
-        number_of_likes = len(likes)
-        postobj = {"id": post.id, "user_id": post.user_id, "artist": post.artist, "title": post.title
-                   , "description": post.description, "likes": number_of_likes, "location": post.location}
-        post_and_number_of_likes_tuple = (postobj, number_of_likes)
-        sorted_list = add_post_in_order(sorted_list, post_and_number_of_likes_tuple)
-    if len(sorted_list) >= 10:
-        sorted_list = sorted_list[0:10]
-    for sorted_item in sorted_list:
-        result.append(sorted_item[0])
+    result = sort_posts_by_likes(posts)
     return json.jsonify({"post_top_list": result})
+
+
+# returns top 10 liked posts or all posts if less than 10, order by likes for one user
+@app.route('/get_user_posts_ordered_by_likes/<user_id>', methods=['GET'])
+def get_user_post_top_list(user_id):
+    posts = get_posts_by_id(user_id)
+    result = sort_posts_by_likes(posts)
+    return json.jsonify({"user_post_top_list": result})
 
 
 @app.route('/register_user', methods=['POST'])
@@ -232,5 +227,22 @@ def add_post_in_order(seq, post_tuple):
         return [post_tuple] + seq
 
 
+# help function that sorts a list of posts after likes
+def sort_posts_by_likes(posts):
+    sorted_list = []
+    result = []
+    for post in posts:
+        postid = post.id
+        likes = get_all_likes_for_post(postid)
+        number_of_likes = len(likes)
+        postobj = {"id": post.id, "user_id": post.user_id, "artist": post.artist, "title": post.title
+                   , "description": post.description, "likes": number_of_likes, "location": post.location}
+        post_and_number_of_likes_tuple = (postobj, number_of_likes)
+        sorted_list = add_post_in_order(sorted_list, post_and_number_of_likes_tuple)
+    if len(sorted_list) >= 10:
+        sorted_list = sorted_list[0:10]
+    for sorted_item in sorted_list:
+        result.append(sorted_item[0])
+    return result
 
 
