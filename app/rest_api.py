@@ -89,6 +89,7 @@ def get_followed_users_id(user_id):
     return json.jsonify({"user_ids": followed_users})
 
 
+# returns json on form {"number_of_likes": 3}
 @app.route('/get_number_of_likes_for_post/<post_id>', methods=['GET'])
 def get_number_of_likes_id(post_id):
     likes = get_all_likes_for_post(post_id)
@@ -106,6 +107,15 @@ def get_comments_for_post(post_id):
     return json.jsonify({"comments": result})
 
 
+# returns json on form {"number_of_comments": 3}
+@app.route('/get_number_of_comments_for_post_by_id/<post_id>', methods=['GET'])
+def get_number_of_comments(post_id):
+    comments = get_comments_for_post_by_id(post_id)
+    number_of_comments = len(comments)
+    return json.jsonify({"number_of_comments": str(number_of_comments)})
+
+
+# returns all posts made by you and people you follow
 @app.route('/get_feed_posts_by_id/<user_id>', methods=['GET'])
 def get_user_feed(user_id):
     followed_users = get_list_of_followed_user_ids(user_id)
@@ -118,6 +128,7 @@ def get_user_feed(user_id):
     return json.jsonify({"posts": result})
 
 
+# returns top 10 liked posts or all posts if less than 10, ordered by likes
 @app.route('/get_posts_ordered_by_likes', methods=['GET'])
 def get_post_top_list():
     posts = get_posts()
@@ -201,6 +212,7 @@ def do_unlike():
     return json.jsonify({"result": "unliked"})
 
 
+# helper function to reduce duplicated code
 def get_list_of_followed_user_ids(user_id):
     follow_relations = get_followed_users_by_id(user_id)
     followed_users = []
@@ -209,7 +221,8 @@ def get_list_of_followed_user_ids(user_id):
     return followed_users
 
 
-# Recursive function to sort after number of likes which is the element of index 1 in the tuple
+# Recursive function that takes a list and a post_tuple object and inserts the post_tuple
+# in the correct position (sorted by number of likes)
 def add_post_in_order(seq, post_tuple):
     if not seq:
         return [post_tuple]
