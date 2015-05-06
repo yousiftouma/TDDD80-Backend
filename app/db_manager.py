@@ -98,7 +98,8 @@ def add_comment(data):
 def add_song_post(data):
     u = User.query.get(data["user_id"])
     song_post = SongPost(post_author=u, title=data["title"], artist=u.username, description=data["description"],
-                         timestamp=datetime.utcnow(), mediafile_path=data["mediafile_path"])
+                         timestamp=datetime.utcnow(), mediafile_path=data["mediafile_path"],
+                         location=data["location"])
     db.session.add(song_post)
     db.session.commit()
 

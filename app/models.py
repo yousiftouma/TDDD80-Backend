@@ -62,6 +62,7 @@ class SongPost(db.Model):
     description = db.Column(db.String)
     timestamp = db.Column(db.DateTime)
     mediafile_path = db.Column(db.String)
+    location = db.Column(db.String)
 
     comments = db.relationship('Comment', backref=db.backref('comment_song_post', lazy='select'))
     likes = db.relationship('User', secondary=like_relation,

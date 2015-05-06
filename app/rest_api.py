@@ -110,9 +110,7 @@ def get_comments_for_post(post_id):
 def get_user_feed(user_id):
     followed_users = get_list_of_followed_user_ids(user_id)
     user_ids = followed_users + [user_id]
-    print(user_ids)
     posts = get_posts_by_multiple_ids(user_ids)
-    print(posts)
     result = []
     if posts is not None:
         for post in posts:
@@ -130,7 +128,7 @@ def get_post_top_list():
         likes = get_all_likes_for_post(postid)
         number_of_likes = len(likes)
         postobj = {"id": post.id, "user_id": post.user_id, "artist": post.artist, "title": post.title
-                   , "description": post.description, "likes": number_of_likes}
+                   , "description": post.description, "likes": number_of_likes, "location": post.location}
         post_and_number_of_likes_tuple = (postobj, number_of_likes)
         sorted_list = add_post_in_order(sorted_list, post_and_number_of_likes_tuple)
     if len(sorted_list) >= 10:
