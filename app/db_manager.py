@@ -74,8 +74,12 @@ def follow_user(follower, followed):
     follower_user = User.query.get(follower)
     followed_user = User.query.get(followed)
     relation = follower_user.follow(followed_user)
-    db.session.add(relation)
-    db.session.commit()
+    if relation:
+        db.session.add(relation)
+        db.session.commit()
+        return json.jsonify({"result": "followed"}), 200
+    else:
+        return json.jsonify({"result": "already following"}), 503
 
 
 def unfollow_user(follower, followed):
@@ -104,17 +108,18 @@ def add_song_post(data):
     db.session.commit()
 
 
+#return json result plus unique (for errors) status codes used for testing
 def add_user(data):
     profile_pic_path = "my default file path"
     if User.query.filter_by(username=data["username"]).first() is not None:
-        return json.jsonify({"result": "username taken"})
+        return json.jsonify({"result": "username taken"}), 501
     elif User.query.filter_by(email=data["email"]).first() is not None:
-        return json.jsonify({"result": "email taken"})
+        return json.jsonify({"result": "email taken"}), 502
     else:
         db.session.add(User(username=data["username"], email=data["email"], password=data["password"],
                             profile_pic=profile_pic_path))
         db.session.commit()
-        return json.jsonify({"result": "ok"})
+        return json.jsonify({"result": "ok"}), 200
 
 
 

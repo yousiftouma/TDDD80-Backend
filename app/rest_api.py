@@ -144,6 +144,7 @@ def get_user_post_top_list(user_id):
     return json.jsonify({"user_post_top_list": result})
 
 
+#will return json data and status code
 @app.route('/register_user', methods=['POST'])
 def register_user():
     json_object = request.get_json(force=True)
@@ -173,8 +174,7 @@ def do_follow():
     data = json_object["action"][0]
     follower = data["follower_id"]
     followed = data["followed_id"]
-    follow_user(follower, followed)
-    return json.jsonify({"result": "followed"})
+    return follow_user(follower, followed)
 
 
 @app.route('/unfollow/', methods=['POST'])
