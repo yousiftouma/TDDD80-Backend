@@ -3,6 +3,7 @@
 ### Database - use git add -f database.db when you want to push a fresh db and then git checkout -- database.db to untrack it after that###
 # Databases
 database.db
+test.db
 
 ### Windows ###
 # Windows image file caches
