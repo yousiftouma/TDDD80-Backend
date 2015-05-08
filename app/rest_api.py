@@ -156,16 +156,14 @@ def register_user():
 def add_post():
     json_object = request.get_json(force=True)
     data = json_object["song_post"][0]
-    add_song_post(data)
-    return json.jsonify({"result": "ok"})
+    return add_song_post(data)
 
 
 @app.route('/add_comment', methods=['POST'])
 def add_new_comment():
     json_object = request.get_json(force=True)
     data = json_object["comment"][0]
-    add_comment(data)
-    return json.jsonify({"result": "ok"})
+    return add_comment(data)
 
 
 @app.route('/follow/', methods=['POST'])
@@ -183,8 +181,7 @@ def do_unfollow():
     data = json_object["action"][0]
     follower = data["follower_id"]
     followed = data["followed_id"]
-    unfollow_user(follower, followed)
-    return json.jsonify({"result": "unfollowed"})
+    return unfollow_user(follower, followed)
 
 
 @app.route('/like/', methods=['POST'])
@@ -193,8 +190,7 @@ def do_like():
     data = json_object["action"][0]
     user_liking = data["user_id"]
     post = data["post_id"]
-    like_post(user_liking, post)
-    return json.jsonify({"result": "liked"})
+    return like_post(user_liking, post)
 
 
 @app.route('/unlike/', methods=['POST'])
@@ -203,8 +199,7 @@ def do_unlike():
     data = json_object["action"][0]
     user_unliking = data["user_id"]
     post = data["post_id"]
-    unlike_post(user_unliking, post)
-    return json.jsonify({"result": "unliked"})
+    return unlike_post(user_unliking, post)
 
 
 # helper function to reduce duplicated code

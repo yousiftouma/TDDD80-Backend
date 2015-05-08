@@ -94,7 +94,6 @@ class Comment(db.Model):
     song_post_id = db.Column(db.Integer, db.ForeignKey('song_post.id'))
     text = db.Column(db.String)
     timestamp = db.Column(db.DateTime)
-    
 
     def __repr__(self):
         return '<Comment %r>' % self.text
