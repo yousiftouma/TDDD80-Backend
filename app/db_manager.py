@@ -34,6 +34,10 @@ def get_posts_by_id(user_id):
     return SongPost.query.filter_by(user_id=user_id).order_by(desc(SongPost.timestamp)).all()
 
 
+def get_all_but_my_posts(user_id):
+    return SongPost.query.filter(SongPost.user_id != user_id).all()
+
+
 def get_posts_by_multiple_ids(user_ids):
     return db.session.query(SongPost).filter(SongPost.user_id.in_(user_ids)).order_by(desc(SongPost.timestamp)).all()
 

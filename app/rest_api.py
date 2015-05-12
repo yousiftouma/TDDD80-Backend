@@ -128,6 +128,17 @@ def get_user_feed(user_id):
     return json.jsonify({"posts": result})
 
 
+# returns all posts except your own, used in discover
+@app.route('/get_discover_posts/<user_id>', methods=['GET'])
+def get_discover_feed(user_id):
+    posts = get_all_but_my_posts(user_id)
+    result = []
+    if posts is not None:
+        for post in posts:
+            result.append(post.as_dict())
+    return json.jsonify({"posts": result})
+
+
 # returns top 10 liked posts or all posts if less than 10, ordered by likes
 @app.route('/get_posts_ordered_by_likes', methods=['GET'])
 def get_post_top_list():
