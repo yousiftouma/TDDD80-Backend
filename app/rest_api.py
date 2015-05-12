@@ -132,6 +132,7 @@ def get_user_feed(user_id):
 @app.route('/get_discover_posts/<user_id>', methods=['GET'])
 def get_discover_feed(user_id):
     posts = get_all_but_my_posts(user_id)
+    print(posts)
     result = []
     if posts is not None:
         for post in posts:
