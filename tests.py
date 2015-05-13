@@ -12,6 +12,7 @@ from app.models import *
 from datetime import datetime
 
 
+# Unittests for api
 class ApiTest(TestCase):
 
     def create_app(self):

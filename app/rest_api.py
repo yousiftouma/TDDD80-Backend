@@ -22,7 +22,7 @@ def internal_error(error):
 
 @app.route('/')
 def index():
-    return "Hello, World!"
+    return "Welcome to the Tingle API!"
 
 
 @app.route('/get_users', methods=['GET'])
@@ -44,9 +44,9 @@ def email_user(email):
     return json.jsonify({"user": result})
 
 
-@app.route('/get_user_by_id/<id>', methods=['GET'])
-def id_user(id):
-    sought_user = get_user_by_id(id)
+@app.route('/get_user_by_id/<user_id>', methods=['GET'])
+def id_user(user_id):
+    sought_user = get_user_by_id(user_id)
     result = []
     if sought_user is not None:
         result.append(sought_user.as_dict())
