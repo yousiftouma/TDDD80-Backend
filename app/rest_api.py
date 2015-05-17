@@ -94,12 +94,23 @@ def get_liked_posts_id(user_id):
 
 # returns json on form {"user_ids": [int id, int id2, int id3]}
 @app.route('/get_all_followed_by_id/<user_id>', methods=['GET'])
-def get_followed_users_id(user_id):
+def get_followed_user_ids_id(user_id):
     followed_users = get_list_of_followed_user_ids(user_id)
     return json.jsonify({"user_ids": followed_users})
 
 
-# returns list of users following the user passed as arg
+# returns list of users followed by the user id passed as arg
+@app.route('/get_all_followed_users_by_id/<user_id>', methods=['GET'])
+def get_followed_users_id(user_id):
+    followed_users_ids = get_list_of_followed_user_ids(user_id)
+    followed_users = []
+    for u_id in followed_users_ids:
+        user_object = get_user_by_id(u_id).as_dict()
+        followed_users.append(user_object)
+    return json.jsonify({"followed_users": followed_users})
+
+
+# returns list of users following the user id passed as arg
 @app.route('/get_following_users_by_id/<user_id>', methods={'GET'})
 def get_following_users_id(user_id):
     following_users = []
