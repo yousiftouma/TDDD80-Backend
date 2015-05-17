@@ -55,6 +55,11 @@ def get_followed_users_by_id(user_id):
     return db.session.query(followers).filter(followers.c.follower_id == user_id).all()
 
 
+# returns all (follower, followed) relations where followed is user sent as arg
+def get_following_users_by_id(user_id):
+    return db.session.query(followers).filter(followers.c.followed_id == user_id).all()
+
+
 # returns all (user, post) relations where post sent as arg is present
 def get_all_likes_for_post(post_id):
     return db.session.query(like_relation).filter(like_relation.c.post_id == post_id).all()

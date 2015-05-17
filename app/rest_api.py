@@ -99,6 +99,16 @@ def get_followed_users_id(user_id):
     return json.jsonify({"user_ids": followed_users})
 
 
+@app.route('/get_following_users_by_id/<user_id>', methods={'GET'})
+def get_following_users_id(user_id):
+    following_users = []
+    following_users_ids = get_list_of_following_user_ids(user_id)
+    for u_id in following_users_ids:
+        user_object = get_user_by_id(u_id).as_dict()
+        following_users.append(user_object)
+    return json.jsonify({"following_users": following_users})
+
+
 # returns json on form {"number_of_likes": 3}
 @app.route('/get_number_of_likes_for_post/<post_id>', methods=['GET'])
 def get_number_of_likes_id(post_id):
@@ -231,6 +241,15 @@ def get_list_of_followed_user_ids(user_id):
     for relation in follow_relations:
         followed_users.append(relation[1])
     return followed_users
+
+
+# helper function
+def get_list_of_following_user_ids(user_id):
+    follow_relations = get_following_users_by_id(user_id)
+    following_users = []
+    for relation in follow_relations:
+        following_users.append(relation[0])
+    return following_users
 
 
 # Recursive function that takes a list and a post_tuple object and inserts the post_tuple
