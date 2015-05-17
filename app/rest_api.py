@@ -89,7 +89,7 @@ def get_liked_posts_id(user_id):
     posts = []
     for like in likes:
         print(like)
-        post_object = get_post(like[1].as_dict())
+        post_object = get_post(like[1]).as_dict()
         print(post_object)
         posts.append(post_object)
     return json.jsonify({"liked_posts": posts})
