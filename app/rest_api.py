@@ -99,6 +99,7 @@ def get_followed_users_id(user_id):
     return json.jsonify({"user_ids": followed_users})
 
 
+# returns list of users following the user passed as arg
 @app.route('/get_following_users_by_id/<user_id>', methods={'GET'})
 def get_following_users_id(user_id):
     following_users = []
