@@ -1,12 +1,11 @@
-Testa först:
+Try following first:
 
-source flask/youpy3/bin/activate om ni står i toppnivån
+source flask/youpy3/bin/activate when on top level 
 python wsgi.py
 
-Om det inte fungerar, gör följande:
+If that doesn't work, try following:
 
-Skapa en virtualenv med python3 som interpretator, installera paketen som krävs
-och kör filen för att starta servern genom följande:
+Create a virtualenv with python3 as interpreter, install packages needed and run the file to start the server as follows:
 
 virtualenv -p path/to/interpretor <nameofvirtualenv>
 
@@ -17,6 +16,6 @@ pip install flask-sqlalchemy
 pip install sqlalchemy-migrate
 pip install migrate
 
-python wsgi.py (filen ligger på toppnivå, startar servern lokalt)
+python wsgi.py (the file is on the top level, starts the server locally)
 
 
