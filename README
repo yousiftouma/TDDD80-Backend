@@ -1,21 +1,4 @@
-Try following first:
 
-source flask/youpy3/bin/activate when on top level 
-python wsgi.py
-
-If that doesn't work, try following:
-
-Create a virtualenv with python3 as interpreter, install packages needed and run the file to start the server as follows:
-
-virtualenv -p path/to/interpretor <nameofvirtualenv>
-
-source <nameofvirtualenv>/bin/activate
-
-pip install flask
-pip install flask-sqlalchemy
-pip install sqlalchemy-migrate
-pip install migrate
-
-python wsgi.py (the file is on the top level, starts the server locally)
+Basic REST API written in Python using flask, sqlalchemy, sqlite and deployed with openshift
 
 
